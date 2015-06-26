@@ -1,0 +1,23 @@
+{
+  "name": "bossbot",
+  "version": "0.0.1",
+  "description": "Der Boss.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --es_staging --harmony_arrow_functions index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schockerzockerz/BossBot.git"
+  },
+  "author": "schockerzockerz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/schockerzockerz/BossBot/issues"
+  },
+  "homepage": "https://github.com/schockerzockerz/BossBot#readme",
+  "dependencies": {
+    "telegram-bot": "^0.1.0"
+  }
+}
