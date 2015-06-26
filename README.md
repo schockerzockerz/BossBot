@@ -1,2 +1,2 @@
 # BossBot
-Der Boss.
+Der Boss, meine Freunde.
