@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/schockerzockerz/BossBot#readme",
   "dependencies": {
-    "telegram-bot": "^0.1.0"
+    "telegram-bot": "^0.1.0",
+    "weather": "^0.1.0",
+    "weather-js": "^1.0.2",
+    "weather.js": "0.0.2"
   }
 }
