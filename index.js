@@ -1,6 +1,6 @@
 "use strict"
 var fs	= require( "fs");
-var path		= require( "path" )
+var path = require( "path" )
 var Boss = require("./lib/boss.js");
 
 GLOBAL.boss = new Boss(process.env.TELEGRAM_BOT_TOKEN);
