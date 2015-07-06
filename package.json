@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/schockerzockerz/BossBot#readme",
   "dependencies": {
+    "cleverbot-node": "avatarkava/cleverbot-node",
     "telegram-bot": "^0.1.0",
     "weather": "^0.1.0",
     "weather-js": "^1.0.2",
