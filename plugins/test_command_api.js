@@ -1,13 +1,10 @@
 boss.addCommand({
-					command: 'rtd',
-					description: 'Schmeiß einen Würfel',
+					command: 'test',
+					description: 'Dies ist ein Test',
 					callback: function(event){
-						
 						boss.sendMessage({
-							text: Math.ceil(Math.random() * 6),
+							text: 'Ein Testevent',
 							chat_id: event.message.chat.id
 						});
-
 					}
 				});
-

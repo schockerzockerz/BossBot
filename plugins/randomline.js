@@ -13,19 +13,17 @@ var bosslines = [
 	'Es ist wie Ventilatoren, wenn du Wind davon bekommst, wirst du kalt gemacht'
 ]
 
-boss.on("message", (msg) => {
-	match = (/(.*)[bB]oss(.+)line/.test(msg.text))
-	
-	if(match) {
 
-		chosen = Math.floor(Math.random() * bosslines.length);
+boss.addCommand({
+					command: 'bossline',
+					description: 'Dropt eine freshe line vom Boss',
+					callback: function(event){
+						chosen = Math.floor(Math.random() * bosslines.length);
 
-		boss.sendMessage({
-			text: bosslines[chosen],
-			chat_id: msg.chat.id
-		});
-		
-	}
-	
-});
+						boss.sendMessage({
+							text: bosslines[chosen],
+							chat_id: event.message.chat.id
+						});
+					}
+				});
 
