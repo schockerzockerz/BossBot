@@ -2,6 +2,7 @@
 var fs	= require( "fs");
 var path = require( "path" )
 var Boss = require("./lib/boss.js");
+var fileSave = require('file-save');
 
 GLOBAL.boss = new Boss(process.env.TELEGRAM_BOT_TOKEN);
 
@@ -17,5 +18,13 @@ plugins.forEach( function(plugin) {
 		console.trace(e);
 	}
 });
+
+var cmdDump = fileSave("cmddump.txt");
+var cmds = boss.getCommands();
+for (var cmd in cmds) {
+	cmd = cmds[cmd];
+	cmdDump.write(cmd.command + " - " + cmd.description + "\n");
+}
+cmdDump.end();
 
 boss.start();
