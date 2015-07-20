@@ -2,9 +2,44 @@ boss.addCommand({
 					command: 'wetter',
 					description: 'Gibt das Wetter an beliebigem Ort',
 					callback: function(event){
+
+						// Emojimaker
+						function getEmoji(weather) {
+							var icons = {
+								'clear-day': String.fromCodePoint(0x2600),
+								'clear-night': String.fromCodePoint(0x1F319),
+								'rain': String.fromCodePoint(0x2614),
+								'snow': String.fromCodePoint(0x2744),
+								'sleet': String.fromCodePoint(0x2744) + String.fromCodePoint(0x2614),
+								'wind': String.fromCodePoint(0x1F4A8),
+								'fog': String.fromCodePoint(0x2600),
+								'cloudy': String.fromCodePoint(0x2601),
+								'partly-cloudy-day': String.fromCodePoint(0x2600) + String.fromCodePoint(0x2601),
+								'party-cloudy-night' : String.fromCodePoint(0x1F319) + String.fromCodePoint(0x2601)
+							}	
+
+							if(icons.hasOwnProperty(weather)){
+								return icons[weather];
+							}else{
+								return '';
+							}
+						}
+						
+						
 						var geocoder = require('node-geocoder')('google', 'http');
 
-						geocoder.geocode(event.vars[0], function(err, geolocation) {
+						var searchstring = event.vars.join(' ');
+						searchstring = searchstring.toLowerCase();
+
+						geocoder.geocode(searchstring, function(err, geolocation) {
+							if(err || !geolocation[0] || searchstring == 'bielefeld'){
+						  		boss.sendMessage({
+									text: 'Kenn ich nich',
+									chat_id: event.message.chat.id
+								});
+						  		return false;
+						  	}
+
 							var Forecast = require('forecast');
 
 							var forecast = new Forecast({
@@ -17,27 +52,32 @@ boss.addCommand({
 							    }
 							});
 
-
 							forecast.get([geolocation[0].latitude, geolocation[0].longitude], function(err, weather) {
-							  	if(err) return console.dir(err);
+							  	
+							  	if(err){
+							  		boss.sendMessage({
+										text: 'Kenn ich nich',
+										chat_id: event.message.chat.id
+									});
+							  		return false;
+							  	}
+
+
+							  	tommorrow = weather.daily.data[2];
+
+
+
+								var text = 		"Das Wetter in " + geolocation[0].formattedAddress + " " + String.fromCodePoint(0x1F481) + "\n";
+								text = text + 	"Aktuell: " + weather.currently.temperature + "°C " + getEmoji(weather.currently.icon) + "\n";
+								text = text + 	"Morgen: " + tommorrow.temperatureMin + " - " + tommorrow.temperatureMax + "°C " +  getEmoji(tommorrow.icon) + "\n";
 
 							  	boss.sendMessage({
-									text: "In " + geolocation[0].formattedAddress + " sind es aktuell " + weather.currently.temperature + "°C",
+									text: text,
 									chat_id: event.message.chat.id
 								});
 							});    
 						});
 
-						
-
-
-						/*weather({location: 'Melbourne'}, function(data) {
-							console.log(data.temp)
-							boss.sendMessage({
-								text: "In " + event.vars[0] + " sind es aktuell " + data.temp + "°C",
-								chat_id: event.message.chat.id
-							});
-						});*/
 
 					}
 				});

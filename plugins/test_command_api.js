@@ -3,7 +3,7 @@ boss.addCommand({
 					description: 'Dies ist ein Test',
 					callback: function(event){
 						boss.sendMessage({
-							text: 'Ein Testevent',
+							text: String.fromCodePoint(0x1F604),
 							chat_id: event.message.chat.id
 						});
 					}
